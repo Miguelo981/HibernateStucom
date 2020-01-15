@@ -1,4 +1,4 @@
-package hibernateStucomDAO;
+package controller;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -13,21 +13,18 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class HibernateUtil {
 
-  private static final SessionFactory sessionFactory;
+    private static final SessionFactory sessionFactory;
     private static final ServiceRegistry serviceRegistry;
 
     static {
         try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
-            // config file.
             Configuration configuration = new Configuration();
             configuration.configure();
-            serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-                    configuration.getProperties()).build();
-
-            sessionFactory = new Configuration().configure().buildSessionFactory(serviceRegistry);
+            //configuration.addResource("Expedientes.hbm.xml");
+            //configuration.addResource("Usuarios.hbm.xml");
+            serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
-            // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
@@ -37,7 +34,6 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    // Método para cerrar el hilo
     public static void close() {
         StandardServiceRegistryBuilder.destroy(serviceRegistry);
     }

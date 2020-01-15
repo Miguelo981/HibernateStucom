@@ -109,7 +109,12 @@ public class Usuarios  implements java.io.Serializable {
         this.expedienteses = expedienteses;
     }
 
+    @Override
+    public String toString() {
+        return this.nombre + ", "+this.apellidos+", "+this.dni;
+    }
 
+    
 
 
 }
