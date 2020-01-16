@@ -1,6 +1,9 @@
 package view;
 
-import controller.HibernateDAO;
+import controller.HibernateORM;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import model.*;
 
 /**
@@ -9,17 +12,15 @@ import model.*;
  */
 public class Console {
 
-    private static HibernateDAO hibernateDao;
+    private static HibernateORM hibernateDao;
 
     public Console() {
-        hibernateDao = new HibernateDAO();
-        Usuarios user = new Usuarios("admin", "admin", "12345678D", "124567", "admin", 3);
-        //hibernateDao.setUser(user);
-        opcionesMenuPrincipal();
-        //Usuarios user = new Usuarios("mike", "mike", "123456789", "124567", "mike", 0);
+        hibernateDao = new HibernateORM();
+        //Usuarios user = new Usuarios("test", "test", "123456789", "124567", "mike", 2);
         //hibernateDao.setUser(user);
         //hibernateDao.setExpediente(new Expedientes(user, "mike", "apellido", "123456789X", "calle", Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()), "123456789", 0));
-    }
+        opcionesMenuPrincipal();
+   }
 
     /**
      * Funcionos basicas del menu de inicio
@@ -46,7 +47,7 @@ public class Console {
      * 
      */
     private void login() {
-        String name = InputAsker.askString("User name: ", 25);
+        String name = InputAsker.askString("User name: ", 25); //TODO CAMBIAR USER NAME A DNI
         String pass = InputAsker.askString("Password: ", 8);
         if (hibernateDao.checkUserExists(name, pass)) {
             UserInterface userInterface = new UserInterface(hibernateDao.getUserByCredentials(name, pass), hibernateDao);

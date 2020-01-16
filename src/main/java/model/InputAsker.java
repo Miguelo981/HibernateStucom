@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class to ask input to user.
@@ -11,13 +13,13 @@ import java.util.ArrayList;
  * @author mfontana
  */
 public class InputAsker {
-    
+
     /**
-     * 
+     *
      * @param message
      * @param max
      * @return
-     * @throws ExceptionStucomZen 
+     * @throws ExceptionStucomZen
      */
     public static String askString(String message, int max) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -38,7 +40,63 @@ public class InputAsker {
         } while (answer.equals(""));
         return answer;
     }
-    
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public static String askDNI(String message) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Pattern pat = Pattern.compile("[0-9]{7,8}[A-Za-z]");
+        String answer = "";
+        boolean error = true;
+        do {
+            try {
+                System.out.println(message);
+                answer = br.readLine();
+                if (answer.length() != 9) {
+                    System.out.println("DNI must be 9 digits (8 numbers and 1 character).");
+                } else {
+                    if (pat.matcher(answer).matches()) {
+                        error = false;
+                    } else {
+                        System.out.println("Incorrect DNI pattern.");
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println("Error input / output.");
+            }
+        } while (error);
+        return answer;
+    }
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public static String askPostalCode(String message) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Pattern pat = Pattern.compile("(\\d{6})");
+        String answer = "";
+        boolean error = true;
+        do {
+            try {
+                System.out.println(message);
+                answer = br.readLine();
+                if (pat.matcher(answer).matches()) {
+                    error = false;
+                } else {
+                    System.out.println("Incorrect postal code pattern.");
+                }
+            } catch (IOException ex) {
+                System.out.println("Error input / output.");
+            }
+        } while (error);
+        return answer;
+    }
+
     public static int askInt(String message, int max) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int num = 0;
@@ -62,12 +120,12 @@ public class InputAsker {
         } while (error);
         return num;
     }
-    
+
     /**
-     * 
+     *
      * @param message
      * @param max
-     * @return 
+     * @return
      */
     public static double askDouble(String message, int max) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -202,9 +260,9 @@ public class InputAsker {
     }
 
     /**
-     * 
+     *
      * @param message
-     * @return 
+     * @return
      */
     public static double askDouble(String message) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -242,6 +300,23 @@ public class InputAsker {
                 System.out.println("Error, the number must be between " + min + " and " + max);
             }
         } while (num < min || num > max);
+        return num;
+    }
+    /**
+     * 
+     * @param message
+     * @param equal
+     * @return 
+     */
+    public static int askIntEqual(String message, int equal) {
+        int num;
+        do {
+            num = askInt(message);
+            
+            if (String.valueOf(num).length()!= equal) {
+                System.out.println("Error, the number must be between " + equal);
+            }
+        } while (String.valueOf(num).length()!= equal);
         return num;
     }
 
