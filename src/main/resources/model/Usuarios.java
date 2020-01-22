@@ -108,10 +108,19 @@ public class Usuarios  implements java.io.Serializable {
     public void setExpedienteses(Set expedienteses) {
         this.expedienteses = expedienteses;
     }
-
+    
+    private String userType() {
+        switch(this.tipousuario) {
+            case 1: return "Auxiliar";
+            case 2: return "Veterinario";
+            case 3: return "Administrador";
+        }
+        return "";
+    }
+    
     @Override
     public String toString() {
-        return this.nombre + ", "+this.apellidos+", "+this.dni;
+        return "Name: "+this.nombre + ", surname: "+this.apellidos+", DNI: "+this.dni+ ", Type: "+this.userType();
     }
 
     

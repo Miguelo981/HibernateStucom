@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class Expedientes  implements java.io.Serializable {
 
-
      private Integer id;
      private Usuarios usuarios;
      private String nombre;
@@ -98,7 +97,12 @@ public class Expedientes  implements java.io.Serializable {
         this.nmascotas = nmascotas;
     }
 
+    @Override
+    public String toString() {
+        return "Name: "+this.nombre+", surname: "+this.apellidos+", DNI: "+this.dni+", CP: "+this.cp+", phone: "+telefono+ ", pet's number: "+this.nmascotas;
+    }
 
+    
 
 
 }

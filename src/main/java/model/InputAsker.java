@@ -78,7 +78,7 @@ public class InputAsker {
      */
     public static String askPostalCode(String message) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Pattern pat = Pattern.compile("(\\d{6})");
+        Pattern pat = Pattern.compile("(\\d{5})");
         String answer = "";
         boolean error = true;
         do {
@@ -96,7 +96,13 @@ public class InputAsker {
         } while (error);
         return answer;
     }
-
+    
+    /**
+     * 
+     * @param message
+     * @param max
+     * @return 
+     */
     public static int askInt(String message, int max) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int num = 0;

@@ -1,9 +1,7 @@
 package view;
 
 import controller.HibernateORM;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import exceptions.ExceptionHibernate;
 import model.*;
 
 /**
@@ -20,15 +18,15 @@ public class Console {
         //hibernateDao.setUser(user);
         //hibernateDao.setExpediente(new Expedientes(user, "mike", "apellido", "123456789X", "calle", Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()), "123456789", 0));
         opcionesMenuPrincipal();
-   }
+    }
 
     /**
      * Funcionos basicas del menu de inicio
      */
     public void opcionesMenuPrincipal() {
-        try {
-            int opcion = 0;
-            do {
+        int opcion = 0;
+        do {
+            try {
                 System.out.println("|----Main menu----|\n1.- Login.\n0.- Exit.");
                 opcion = InputAsker.askInt("Which option will choose?", 0, 1);
                 switch (opcion) {
@@ -36,23 +34,24 @@ public class Console {
                         login();
                         break;
                 }
-            } while (opcion != 0);
-            hibernateDao.close();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        } while (opcion != 0);
+        hibernateDao.close();
     }
     
     /**
-     * 
+     * Funcion para hacer login y acceder a las funciones de usuario
+     * @throws ExceptionHibernate 
      */
-    private void login() {
+    private void login() throws ExceptionHibernate {
         String name = InputAsker.askString("User name: ", 25); //TODO CAMBIAR USER NAME A DNI
         String pass = InputAsker.askString("Password: ", 8);
         if (hibernateDao.checkUserExists(name, pass)) {
             UserInterface userInterface = new UserInterface(hibernateDao.getUserByCredentials(name, pass), hibernateDao);
         } else {
-            System.out.println("Name or password is not correct.");
+            throw new ExceptionHibernate(ExceptionHibernate.nameOrPassWrong);
         }
     }
 
