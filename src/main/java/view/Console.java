@@ -14,9 +14,6 @@ public class Console {
 
     public Console() {
         hibernateDao = new HibernateORM();
-        //Usuarios user = new Usuarios("test", "test", "123456789", "124567", "mike", 2);
-        //hibernateDao.setUser(user);
-        //hibernateDao.setExpediente(new Expedientes(user, "mike", "apellido", "123456789X", "calle", Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()), "123456789", 0));
         opcionesMenuPrincipal();
     }
 
@@ -46,10 +43,10 @@ public class Console {
      * @throws ExceptionHibernate 
      */
     private void login() throws ExceptionHibernate {
-        String name = InputAsker.askString("User name: ", 25); //TODO CAMBIAR USER NAME A DNI
+        String dni = InputAsker.askString("User DNI: ", 9); //TODO CAMBIAR USER NAME A DNI
         String pass = InputAsker.askString("Password: ", 8);
-        if (hibernateDao.checkUserExists(name, pass)) {
-            UserInterface userInterface = new UserInterface(hibernateDao.getUserByCredentials(name, pass), hibernateDao);
+        if (hibernateDao.checkUserExists(dni, pass)) {
+            UserInterface userInterface = new UserInterface(hibernateDao.getUserByCredentials(dni, pass), hibernateDao);
         } else {
             throw new ExceptionHibernate(ExceptionHibernate.nameOrPassWrong);
         }

@@ -29,8 +29,8 @@ public class HibernateORM {
      * @param pass
      * @return si existe o no
      */
-    public boolean checkUserExists(String name, String pass) {
-        Query q = session.createQuery("select u from Usuarios u where u.nombre = '" + name + "' and u.pass = '" + pass + "'");
+    public boolean checkUserExists(String dni, String pass) {
+        Query q = session.createQuery("select u from Usuarios u where u.dni = '" + dni + "' and u.pass = '" + pass + "'");
         Usuarios result = (Usuarios) q.uniqueResult();
         if (result != null)
             return true;
@@ -46,8 +46,8 @@ public class HibernateORM {
         Query q = session.createQuery("select u from Usuarios u where u.matricula = '" + matricula+ "'");
         Usuarios result = (Usuarios) q.uniqueResult();
         if (result != null)
-            return true;
-        return false;
+            return false;
+        return true;
     }
     /**
      * Funcion para averiguar si el dni recibiendo ya esta en uso o no
@@ -67,8 +67,8 @@ public class HibernateORM {
      * @param pass
      * @return usuario
      */
-    public Usuarios getUserByCredentials(String name, String pass) {
-        Query q = session.createQuery("select u from Usuarios u where u.nombre = '" + name + "' and u.pass = '" + pass + "'");
+    public Usuarios getUserByCredentials(String dni, String pass) {
+        Query q = session.createQuery("select u from Usuarios u where u.dni = '" + dni + "' and u.pass = '" + pass + "'");
         Usuarios result = (Usuarios) q.uniqueResult();
         return result;
     }

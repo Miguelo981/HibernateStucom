@@ -34,13 +34,13 @@ public class UserInterface {
         System.out.println("|----" + this.user.getNombre() + "----|");
         switch (this.user.getTipousuario()) {
             case 1:
-                System.out.println("1.- Check expediente.\n0.- Exit.");
+                System.out.println("1.- Check expediente.\n0.- Logout.");
                 return 1;
             case 2:
-                System.out.println("1.- Check expediente.\n2.- Register expediente\n3.- Delete expediente\n4.- Edit expediente\n0.- Exit.");
+                System.out.println("1.- Check expediente.\n2.- Register expediente\n3.- Delete expediente\n4.- Edit expediente\n0.- Logout.");
                 return 4;
             case 3:
-                System.out.println("1.- Check expediente.\n2.- Register expediente\n3.- Delete expediente\n4.- Edit expediente\n5.- Register user\n6.- Delete user\n7.- Edit user\n8.- Check users\n0.- Exit.");
+                System.out.println("1.- Check expediente.\n2.- Register expediente\n3.- Delete expediente\n4.- Edit expediente\n5.- Register user\n6.- Delete user\n7.- Edit user\n8.- Check users\n0.- Logout.");
                 return 8;
         }
         return 0;
